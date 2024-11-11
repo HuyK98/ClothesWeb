@@ -8,6 +8,58 @@
     <title>Ecommerce Web</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="style.css">
+<style>
+    .icon-container {
+    display: flex; /* Use flexbox to align items horizontally */
+    justify-content: space-between; /* Space out the button and the eye icon */
+    align-items: center; /* Vertically center the items */
+    width: 100%; /* Ensure the container takes up the full width */
+}
+
+.add-to-cart {
+    display: flex; /* Align button text and cart icon in a row */
+    align-items: center; /* Vertically align items in the middle */
+    text-decoration: none; /* Remove underline from link */
+}
+
+.add-to-cart button {
+    padding: 10px 70px; /* Add padding inside the button */
+    background-color: transparent; /* Transparent background by default */
+    color: black; /* White text */
+    border: 2px solid black; /* Black border around the button */
+    border-radius: 5px;
+    font-size: 12px; /* Adjust font size */
+    display: flex; /* Allow the icon and text to stay on the same line */
+    align-items: center; /* Align text and icon vertically */
+    cursor: pointer; /* Show pointer cursor when hovering over button */
+}
+
+.add-to-cart button:hover {
+    background-color: black; /* Black background on hover */
+    color: white; /* White text on hover */
+    border-color: black; /* Keep black border on hover */
+}
+
+.add-to-cart i {
+    margin-left: 8px; /* Small space between the button text and cart icon */
+}
+
+.view-details {
+    display: flex; /* Align eye icon with the link */
+    align-items: center;
+    text-decoration: none; /* Remove underline from link */
+}
+
+.view-details i {
+    font-size: 1.5em; /* Size the eye icon */
+    margin-left: 10px; /* Space between the icon and the button */
+    color: black; /* Color of the icon */
+}
+
+.view-details:hover i {
+    color: #007bff; /* Change the icon color on hover */
+}
+</style>
 </head>
 
 <body>
@@ -161,7 +213,7 @@
         </div>
     </section>
 
-    <section id="page-header">
+    <section id="page-header" style="background-image: url('../img/banner/b1.jpg');">
         <h2>#stayhome</h2>
         <p>Save more with coupons & up to 70% off!</p>
     </section>
@@ -207,14 +259,15 @@
     }
     ?>
 
-    <section id="product1" class="section-p1">
+<section id="product1" class="section-p1">
         <div class="pro-container">
             <?php
             // Lấy tất cả sản phẩm từ cơ sở dữ liệu
             while ($product = $result->fetch_assoc()):
                 ?>
                 <div class="pro">
-                    <img src="../img/products/<?php echo !empty($product['image']) ? $product['image'] : 'default-image.jpg'; ?>" alt="">
+                    <img src="../img/products/<?php echo !empty($product['image']) ? $product['image'] : 'default-image.jpg'; ?>"
+                        alt="">
                     <div class="des">
                         <h5><?php echo $product['name']; ?></h5> <!-- Tên sản phẩm -->
                         <div class="star">
@@ -225,9 +278,17 @@
                         </div>
                         <h4><?php echo number_format($product['price']); ?> đ</h4> <!-- Giá sản phẩm -->
                     </div>
-                    <a href="?add_to_cart=<?php echo $product['id']; ?>&quantity=1">
-                        <i class="fal fa-shopping-cart cart"></i> <!-- Icon mua hàng -->
-                    </a>
+                    <div class="icon-container">
+                        <!-- Add to Cart Button and Icon (aligned to the left) -->
+                        <a href="?add_to_cart=<?php echo $product['id']; ?>&quantity=1" class="add-to-cart">
+                            <button>THÊM VÀO GIỎ</button> 
+                            <!-- Icon for adding to cart -->
+                        </a>
+                        <!-- Product Detail Icon (aligned to the right) -->
+                        <a href="product_detail.php?id=<?php echo $product['id']; ?>" class="view-details">
+                            <i class="far fa-eye eye-icon"></i> <!-- Icon for viewing details -->
+                        </a>
+                    </div>
                 </div>
             <?php endwhile; ?>
         </div>
